@@ -27,6 +27,11 @@ export interface ExerciseDef {
   repsOrTime: string;
   steps: string[];
   safetyNotes: string;
+  /**
+   * Vídeo opcional: link do YouTube (youtube.com/watch?v=… ou youtu.be/…),
+   * página do Vimeo, ou URL direta a um ficheiro .mp4 (ex.: Supabase Storage, CDN).
+   */
+  videoUrl?: string;
 }
 
 export interface UserProfile {

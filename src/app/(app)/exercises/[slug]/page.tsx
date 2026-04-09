@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { UpgradeBanner } from "@/components/upgrade-banner";
-import { MediaPlaceholder } from "@/components/media-placeholder";
+import { ExerciseMedia } from "@/components/exercise-media";
 import { buttonClassName } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getExerciseBySlug } from "@/data/exercises";
@@ -71,7 +71,7 @@ export default async function ExerciseDetailPage({ params }: Props) {
         </h1>
       </div>
 
-      <MediaPlaceholder />
+      <ExerciseMedia exercise={exercise} />
 
       <Card>
         <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">
