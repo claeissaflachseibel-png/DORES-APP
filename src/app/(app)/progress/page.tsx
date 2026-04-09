@@ -138,7 +138,7 @@ export default async function ProgressPage() {
             </p>
           ) : (
             <div
-              className="flex items-end gap-1 sm:gap-2 min-h-[160px]"
+              className="flex min-h-[168px] flex-wrap items-end justify-center gap-3 sm:gap-4"
               role="img"
               aria-label="Gráfico de níveis de dor"
             >
@@ -147,14 +147,14 @@ export default async function ProgressPage() {
                 return (
                   <div
                     key={`${p.logged_at}-${i}`}
-                    className="flex-1 flex flex-col items-center justify-end gap-1 min-w-0 h-[140px]"
+                    className="flex h-[148px] w-11 shrink-0 flex-col items-center justify-end gap-1.5 sm:w-12"
                   >
                     <div
-                      className="w-full max-w-[28px] mx-auto rounded-t-md bg-primary/80 transition-all"
-                      style={{ height: `${Math.max(h, 10)}px` }}
+                      className="w-full min-h-2 rounded-t-lg bg-primary shadow-sm transition-all"
+                      style={{ height: `${Math.max(h, 8)}px` }}
                       title={`${p.level}/10`}
                     />
-                    <span className="text-[10px] text-muted truncate w-full text-center hidden sm:block">
+                    <span className="w-full text-center text-[10px] font-medium text-muted tabular-nums">
                       {String(p.logged_at).slice(5, 10)}
                     </span>
                   </div>
@@ -179,13 +179,21 @@ export default async function ProgressPage() {
         </p>
         <Card padding="lg">
           {reliefMissingTable ? (
-            <p className="text-sm text-muted leading-relaxed">
-              Ainda não existe a tabela no projeto Supabase. Corre o ficheiro{" "}
-              <code className="text-xs bg-accent px-1 py-0.5 rounded">
-                supabase/migrations/002_session_relief_logs.sql
-              </code>{" "}
-              no SQL Editor.
-            </p>
+            <div className="space-y-3 rounded-xl border border-border bg-accent/40 px-4 py-3 text-sm leading-relaxed text-muted">
+              <p>
+                Falta criar a tabela de alívio no Supabase. Abre{" "}
+                <strong className="text-foreground">SQL Editor</strong> no teu
+                projeto, cola o conteúdo de{" "}
+                <code className="rounded bg-card px-1.5 py-0.5 text-xs text-foreground">
+                  supabase/migrations/002_session_relief_logs.sql
+                </code>{" "}
+                e corre <strong className="text-foreground">Run</strong>.
+              </p>
+              <p className="text-xs">
+                (No Cursor: abre esse ficheiro na pasta do projeto, copia tudo,
+                cola no SQL Editor e executa uma vez.)
+              </p>
+            </div>
           ) : reliefChart.length === 0 ? (
             <p className="text-sm text-muted">
               Sem registos de alívio ainda. Marca exercícios e depois indica o
@@ -193,7 +201,7 @@ export default async function ProgressPage() {
             </p>
           ) : (
             <div
-              className="flex items-end gap-1 sm:gap-2 min-h-[160px]"
+              className="flex min-h-[168px] flex-wrap items-end justify-center gap-3 sm:gap-4"
               role="img"
               aria-label="Gráfico de alívio após sessão"
             >
@@ -202,14 +210,14 @@ export default async function ProgressPage() {
                 return (
                   <div
                     key={`${r.logged_on}-${i}`}
-                    className="flex-1 flex flex-col items-center justify-end gap-1 min-w-0 h-[140px]"
+                    className="flex h-[148px] w-11 shrink-0 flex-col items-center justify-end gap-1.5 sm:w-12"
                   >
                     <div
-                      className="w-full max-w-[28px] mx-auto rounded-t-md bg-emerald-500/85 transition-all"
-                      style={{ height: `${Math.max(h, 10)}px` }}
+                      className="w-full min-h-2 rounded-t-lg bg-emerald-500 shadow-sm transition-all"
+                      style={{ height: `${Math.max(h, 8)}px` }}
                       title={`Alívio ${r.relief_score}/10`}
                     />
-                    <span className="text-[10px] text-muted truncate w-full text-center hidden sm:block">
+                    <span className="w-full text-center text-[10px] font-medium text-muted tabular-nums">
                       {String(r.logged_on).slice(5, 10)}
                     </span>
                   </div>
@@ -232,7 +240,7 @@ export default async function ProgressPage() {
         </p>
         <Card padding="lg">
           <div
-            className="flex items-end gap-1 sm:gap-1.5 min-h-[180px] overflow-x-auto pb-1"
+            className="-mx-1 flex min-h-[188px] items-end justify-center gap-1.5 overflow-x-auto px-1 pb-1 sm:gap-2"
             role="img"
             aria-label="Comparação dor e alívio por dia"
           >
@@ -245,26 +253,28 @@ export default async function ProgressPage() {
               return (
                 <div
                   key={day}
-                  className="flex flex-col items-center justify-end gap-1 min-w-[22px] sm:min-w-[26px] h-[170px] flex-1"
+                  className="flex h-[172px] w-9 shrink-0 flex-col items-center justify-end gap-1 sm:w-10"
                 >
-                  <div className="flex items-end justify-center gap-0.5 h-[120px] w-full">
+                  <div className="flex h-[128px] w-full items-end justify-center gap-1">
                     <div
-                      className="w-2.5 sm:w-3 rounded-t-sm bg-primary/75"
+                      className="w-3.5 rounded-t-md bg-primary sm:w-4"
                       style={{
                         height:
-                          pain != null ? `${Math.max(painH, 6)}px` : "4px",
+                          pain != null ? `${Math.max(painH, 8)}px` : "6px",
+                        opacity: pain != null ? 1 : 0.25,
                       }}
                       title={
                         pain != null ? `Dor ${pain}/10` : "Sem check-in de dor"
                       }
                     />
                     <div
-                      className="w-2.5 sm:w-3 rounded-t-sm bg-emerald-500/80"
+                      className="w-3.5 rounded-t-md bg-emerald-500 sm:w-4"
                       style={{
                         height:
                           relief != null
-                            ? `${Math.max(reliefH, 6)}px`
-                            : "4px",
+                            ? `${Math.max(reliefH, 8)}px`
+                            : "6px",
+                        opacity: relief != null ? 1 : 0.25,
                       }}
                       title={
                         relief != null
@@ -273,7 +283,7 @@ export default async function ProgressPage() {
                       }
                     />
                   </div>
-                  <span className="text-[9px] sm:text-[10px] text-muted text-center leading-none rotate-0">
+                  <span className="text-center text-[9px] font-medium text-muted tabular-nums sm:text-[10px]">
                     {day.slice(8, 10)}/{day.slice(5, 7)}
                   </span>
                 </div>
