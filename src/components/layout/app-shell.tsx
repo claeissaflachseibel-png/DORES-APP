@@ -49,7 +49,7 @@ export function AppShell({
         })}
       </aside>
 
-      <main className="mx-auto flex min-h-0 w-full min-w-0 max-w-6xl flex-1 py-6 sm:max-w-none sm:py-10 xl:max-w-7xl pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-[max(1.5rem,env(safe-area-inset-left,0px))] sm:pr-[max(2rem,env(safe-area-inset-right,0px))]">
+      <main className="mx-auto flex min-h-0 w-full min-w-0 max-w-6xl flex-1 flex-col gap-6 py-6 sm:py-10 xl:max-w-7xl pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-[max(1.5rem,env(safe-area-inset-left,0px))] sm:pr-[max(2rem,env(safe-area-inset-right,0px))]">
         {banner}
         {children}
       </main>
