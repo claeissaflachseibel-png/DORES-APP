@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { UpgradeBanner } from "@/components/upgrade-banner";
 import { ExerciseMedia } from "@/components/exercise-media";
+import { ExerciseTimer } from "@/components/exercise-timer";
 import { buttonClassName } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getExerciseBySlug } from "@/data/exercises";
@@ -72,6 +73,8 @@ export default async function ExerciseDetailPage({ params }: Props) {
       </div>
 
       <ExerciseMedia exercise={exercise} />
+
+      <ExerciseTimer suggestedMinutes={exercise.durationMinutes} />
 
       <Card>
         <h2 className="text-sm font-semibold text-foreground uppercase tracking-wide">
