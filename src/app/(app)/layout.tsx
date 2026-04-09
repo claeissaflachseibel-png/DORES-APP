@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { DailyPainBanner } from "@/components/daily-pain-banner";
 import { AppShell } from "@/components/layout/app-shell";
 import { hasPainLogToday } from "@/lib/daily-pain-log";
@@ -8,6 +9,7 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
+  await connection();
   const session = await getSessionProfile();
   const showDailyPrompt =
     session != null &&

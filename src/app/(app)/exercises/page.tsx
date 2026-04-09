@@ -3,7 +3,11 @@ import { redirect } from "next/navigation";
 import { UpgradeBanner } from "@/components/upgrade-banner";
 import { ExerciseCard } from "@/components/exercise-card";
 import { Card } from "@/components/ui/card";
-import { regionExerciseSections } from "@/lib/access/plan-access";
+import {
+  canViewExercise,
+  hideLockedExercisesFromLists,
+  regionExerciseSections,
+} from "@/lib/access/plan-access";
 import type { AccessContext } from "@/lib/access/plan-access";
 import { getSessionProfile } from "@/lib/profile";
 
@@ -20,6 +24,7 @@ export default async function ExercisesPage() {
   };
 
   const sections = regionExerciseSections(ctx);
+  const hideLocked = hideLockedExercisesFromLists(ctx);
 
   return (
     <div className="space-y-10">
@@ -28,7 +33,7 @@ export default async function ExercisesPage() {
           Protocolos por região
         </h1>
         <p className="text-muted mt-2 max-w-2xl text-sm sm:text-base">
-          {profile.plan === "free" ? (
+          {hideLocked ? (
             <>
               Vês apenas os exercícios incluídos no plano gratuito. O protocolo
               completo fica disponível ao fazeres upgrade em{" "}
@@ -47,7 +52,7 @@ export default async function ExercisesPage() {
         </p>
       </header>
 
-      {profile.plan === "free" && <UpgradeBanner variant="region" />}
+      {hideLocked && <UpgradeBanner variant="region" />}
       {profile.plan === "single_region" && (
         <UpgradeBanner
           variant="full"
@@ -88,29 +93,29 @@ export default async function ExercisesPage() {
                     .
                   </p>
                   <p className="text-xs text-muted mt-2">
-                    {profile.plan === "free"
+                    {hideLocked
                       ? "Protocolo completo disponível com upgrade."
                       : `${locked.length} exercícios no protocolo completo.`}
                   </p>
                 </Card>
               ) : (
                 <ul className="space-y-3">
-                  {(profile.plan === "free" ? visible : [...visible, ...locked]).map(
-                    (ex) => {
-                      const isLocked =
-                        profile.plan !== "free" &&
-                        locked.some((l) => l.slug === ex.slug);
-                      return (
-                        <li key={ex.slug}>
-                          <ExerciseCard
-                            exercise={ex}
-                            locked={isLocked}
-                            index={ex.order}
-                          />
-                        </li>
-                      );
-                    }
-                  )}
+                  {(hideLocked
+                    ? visible.filter((ex) => canViewExercise(ctx, ex))
+                    : [...visible, ...locked]
+                  ).map((ex) => {
+                    const isLocked =
+                      !hideLocked && locked.some((l) => l.slug === ex.slug);
+                    return (
+                      <li key={ex.slug}>
+                        <ExerciseCard
+                          exercise={ex}
+                          locked={isLocked}
+                          index={ex.order}
+                        />
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </section>

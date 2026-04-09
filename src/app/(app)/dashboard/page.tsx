@@ -9,6 +9,7 @@ import { getRegionBySlug } from "@/data/pain-regions";
 import {
   canViewExercise,
   filterExercisesByAccess,
+  hideLockedExercisesFromLists,
   planLabel,
   type AccessContext,
 } from "@/lib/access/plan-access";
@@ -36,8 +37,10 @@ export default async function DashboardPage() {
   const regionMeta = getRegionBySlug(primary)!;
   const all = getExercisesByRegion(primary);
   const { visible, locked } = filterExercisesByAccess(ctx, all);
-  const exercisesOnDashboard =
-    profile.plan === "free" ? visible : [...visible, ...locked];
+  const hideLocked = hideLockedExercisesFromLists(ctx);
+  const exercisesOnDashboard = hideLocked
+    ? visible.filter((ex) => canViewExercise(ctx, ex))
+    : [...visible, ...locked];
 
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
@@ -160,7 +163,7 @@ export default async function DashboardPage() {
         <p className="text-sm text-muted mb-4">
           Segue a ordem sugerida — foi pensada como jornada progressiva.
         </p>
-        {profile.plan === "free" && (
+        {hideLocked && (
           <p className="mb-4 rounded-2xl border border-border/80 bg-accent/40 px-4 py-3 text-sm leading-relaxed text-muted">
             <span className="font-medium text-foreground">
               Plano gratuito:
@@ -187,12 +190,12 @@ export default async function DashboardPage() {
             );
           })}
         </ul>
-        {profile.plan !== "free" && locked.length > 0 && (
+        {!hideLocked && locked.length > 0 && (
           <p className="mt-4 text-center text-sm text-muted">
             +{locked.length} exercícios disponíveis ao desbloquear esta região.
           </p>
         )}
-        {profile.plan === "free" && (
+        {hideLocked && (
           <p className="mt-4 text-center text-sm text-muted">
             Protocolo completo e mais regiões em{" "}
             <Link href="/plans" className="font-medium text-primary hover:underline">

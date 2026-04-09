@@ -30,6 +30,11 @@ export function visibleExerciseCountForRegion(ctx: AccessContext): number {
   return Number.POSITIVE_INFINITY;
 }
 
+/** Plano grátis (ou futuro limite finito): não listar exercícios bloqueados na UI. */
+export function hideLockedExercisesFromLists(ctx: AccessContext): boolean {
+  return Number.isFinite(visibleExerciseCountForRegion(ctx));
+}
+
 export function canViewExercise(
   ctx: AccessContext,
   exercise: Pick<ExerciseDef, "regionSlug" | "order">
