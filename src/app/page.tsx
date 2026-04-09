@@ -20,8 +20,8 @@ const benefits = [
 export default function LandingPage() {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <header className="border-b border-border/60 bg-card/80 backdrop-blur-sm sticky top-0 z-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <header className="border-b border-border/60 bg-card/80 backdrop-blur-sm sticky top-0 z-20 pt-[env(safe-area-inset-top,0px)]">
+        <div className="max-w-6xl mx-auto h-14 min-h-14 sm:h-16 sm:min-h-16 flex items-center justify-between pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-6 sm:pr-6">
           <span className="font-display text-xl text-primary">Dores+</span>
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
@@ -41,11 +41,11 @@ export default function LandingPage() {
       </header>
 
       <main className="flex-1">
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16 sm:pb-24">
+        <section className="max-w-6xl mx-auto pt-10 sm:pt-20 pb-14 sm:pb-24 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-6 sm:pr-6">
           <p className="text-sm font-medium text-primary tracking-wide uppercase mb-4">
             Saúde do movimento
           </p>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground max-w-3xl leading-[1.1]">
+          <h1 className="font-display text-[clamp(1.5rem,5.5vw,2.25rem)] sm:text-5xl lg:text-6xl text-foreground max-w-3xl leading-[1.12] text-balance">
             Alívio guiado para costas, pescoço, ombros e joelhos — sem complicar.
           </h1>
           <p className="mt-6 text-lg text-muted max-w-2xl leading-relaxed">
@@ -79,8 +79,8 @@ export default function LandingPage() {
           </p>
         </section>
 
-        <section className="bg-accent/50 border-y border-border/60 py-16 sm:py-20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <section className="bg-accent/50 border-y border-border/60 py-14 sm:py-20">
+          <div className="max-w-6xl mx-auto pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-6 sm:pr-6">
             <h2 className="font-display text-2xl sm:text-3xl text-foreground mb-10 text-center">
               Porque o Dores+ funciona contigo
             </h2>
@@ -97,7 +97,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <section className="max-w-6xl mx-auto py-14 sm:py-20 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-6 sm:pr-6">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="font-display text-2xl sm:text-3xl text-foreground">
@@ -133,7 +133,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20 text-center">
+        <section className="max-w-3xl mx-auto pb-16 sm:pb-20 text-center pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-6 sm:pr-6">
           <Card className="bg-primary text-white border-0 shadow-lg">
             <h2 className="font-display text-2xl sm:text-3xl">
               Pronto para o primeiro passo?
@@ -157,8 +157,8 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-border py-8 mt-auto bg-card">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs text-muted leading-relaxed">
+      <footer className="border-t border-border py-8 mt-auto bg-card pb-[max(2rem,env(safe-area-inset-bottom,0px))]">
+        <div className="max-w-6xl mx-auto text-center text-xs text-muted leading-relaxed pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-6 sm:pr-6">
           <p className="font-display text-primary text-sm mb-2">Dores+</p>
           <p>
             Informação educativa sobre movimento e bem-estar. Não substitui

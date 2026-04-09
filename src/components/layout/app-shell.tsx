@@ -22,8 +22,8 @@ export function AppShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-dvh flex flex-col pb-24 sm:pb-0 sm:pl-56">
-      <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 w-56 border-r border-border bg-card flex-col py-8 px-4 gap-1 z-30">
+    <div className="min-h-dvh flex min-w-0 flex-col bg-background pb-24 sm:pb-0 sm:pl-56">
+      <aside className="hidden sm:flex fixed left-0 top-0 bottom-0 z-30 w-56 flex-col gap-1 border-r border-border bg-card py-8 px-4">
         <Link
           href="/dashboard"
           className="font-display text-xl text-primary mb-8 px-3"
@@ -49,16 +49,16 @@ export function AppShell({
         })}
       </aside>
 
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+      <main className="mx-auto flex min-h-0 w-full min-w-0 max-w-6xl flex-1 py-6 sm:max-w-none sm:py-10 xl:max-w-7xl pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pl-[max(1.5rem,env(safe-area-inset-left,0px))] sm:pr-[max(2rem,env(safe-area-inset-right,0px))]">
         {banner}
         {children}
       </main>
 
       <nav
-        className="fixed bottom-0 inset-x-0 z-40 sm:hidden border-t border-border bg-card/95 backdrop-blur-md pb-[env(safe-area-inset-bottom,0)]"
+        className="fixed bottom-0 inset-x-0 z-40 sm:hidden border-t border-border bg-card/95 backdrop-blur-md pb-[env(safe-area-inset-bottom,0px)] pl-[env(safe-area-inset-left,0px)] pr-[env(safe-area-inset-right,0px)]"
         aria-label="Navegação principal"
       >
-        <ul className="flex justify-around items-stretch max-w-lg mx-auto py-2">
+        <ul className="flex justify-around items-stretch max-w-lg mx-auto py-2 gap-0.5">
           {nav.map((item) => {
             const active =
               pathname === item.href || pathname.startsWith(`${item.href}/`);

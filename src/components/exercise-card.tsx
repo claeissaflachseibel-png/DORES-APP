@@ -16,11 +16,11 @@ export function ExerciseCard({
       padding="md"
       className={`transition-all ${
         locked
-          ? "opacity-75 border-dashed"
+          ? "border-dashed opacity-90"
           : "hover:border-primary/25 hover:shadow-md"
       }`}
     >
-      <div className="flex gap-4">
+      <div className="flex gap-3 sm:gap-4">
         <div
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-sm font-semibold ${
             locked ? "bg-border text-muted" : "bg-accent text-primary"
@@ -30,20 +30,23 @@ export function ExerciseCard({
           {index}
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="font-medium text-foreground leading-snug">
+          <div className="flex items-start justify-between gap-2 sm:gap-4">
+            <h3 className="min-w-0 font-medium leading-snug text-foreground">
               {exercise.title}
             </h3>
-            {locked && (
-              <span className="shrink-0 text-xs font-medium text-muted bg-border/60 px-2 py-0.5 rounded-lg">
-                Bloqueado
-              </span>
-            )}
+            {locked ? (
+              <Link
+                href="/plans"
+                className="shrink-0 text-sm font-semibold text-primary hover:underline"
+              >
+                Desbloquear
+              </Link>
+            ) : null}
           </div>
-          <p className="text-sm text-muted mt-1 line-clamp-2">
+          <p className="mt-1 line-clamp-2 text-sm text-muted">
             {exercise.description}
           </p>
-          <p className="text-xs text-muted mt-2">
+          <p className="mt-2 text-xs text-muted">
             {exercise.durationMinutes} min · {exercise.repsOrTime}
           </p>
         </div>

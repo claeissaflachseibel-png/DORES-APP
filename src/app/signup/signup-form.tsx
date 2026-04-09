@@ -99,7 +99,7 @@ export function SignupForm({ signupErrCode }: { signupErrCode?: string }) {
   }
 
   return (
-    <div className="min-h-dvh flex flex-col items-center justify-center px-4 py-12 bg-background">
+    <div className="min-h-dvh flex flex-col items-center justify-center py-10 sm:py-12 bg-background pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] pt-[max(2.5rem,env(safe-area-inset-top,0px))] pb-[max(2.5rem,env(safe-area-inset-bottom,0px))]">
       <Link
         href="/"
         className="font-display text-2xl text-primary mb-8 hover:opacity-80"

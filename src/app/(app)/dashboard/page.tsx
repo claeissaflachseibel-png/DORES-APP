@@ -158,6 +158,20 @@ export default async function DashboardPage() {
         <p className="text-sm text-muted mb-4">
           Segue a ordem sugerida — foi pensada como jornada progressiva.
         </p>
+        {profile.plan === "free" && (
+          <p className="mb-4 rounded-2xl border border-border/80 bg-accent/40 px-4 py-3 text-sm leading-relaxed text-muted">
+            <span className="font-medium text-foreground">
+              Plano gratuito:
+            </span>{" "}
+            os <strong className="text-foreground">3 primeiros</strong>{" "}
+            exercícios da tua região estão abertos. Os restantes mostram o que
+            podes desbloquear — usa{" "}
+            <Link href="/plans" className="font-medium text-primary hover:underline">
+              Planos
+            </Link>{" "}
+            quando quiseres.
+          </p>
+        )}
         <ul className="space-y-3">
           {all.map((ex) => {
             const open = canViewExercise(ctx, ex);
