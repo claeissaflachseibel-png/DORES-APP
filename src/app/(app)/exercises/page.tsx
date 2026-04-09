@@ -28,9 +28,22 @@ export default async function ExercisesPage() {
           Protocolos por região
         </h1>
         <p className="text-muted mt-2 max-w-2xl text-sm sm:text-base">
-          Cada lista segue uma ordem clínica simples: mobilidade, controlo e
-          progressão suave. Exercícios bloqueados mostram o que desbloqueias com o
-          upgrade.
+          {profile.plan === "free" ? (
+            <>
+              Vês apenas os exercícios incluídos no plano gratuito. O protocolo
+              completo fica disponível ao fazeres upgrade em{" "}
+              <Link href="/plans" className="font-medium text-primary hover:underline">
+                Planos
+              </Link>
+              .
+            </>
+          ) : (
+            <>
+              Cada lista segue uma ordem clínica simples: mobilidade, controlo e
+              progressão suave. Exercícios bloqueados mostram o que desbloqueias com
+              o upgrade.
+            </>
+          )}
         </p>
       </header>
 
@@ -75,23 +88,29 @@ export default async function ExercisesPage() {
                     .
                   </p>
                   <p className="text-xs text-muted mt-2">
-                    {locked.length} exercícios no protocolo completo.
+                    {profile.plan === "free"
+                      ? "Protocolo completo disponível com upgrade."
+                      : `${locked.length} exercícios no protocolo completo.`}
                   </p>
                 </Card>
               ) : (
                 <ul className="space-y-3">
-                  {[...visible, ...locked].map((ex) => {
-                    const isLocked = locked.some((l) => l.slug === ex.slug);
-                    return (
-                      <li key={ex.slug}>
-                        <ExerciseCard
-                          exercise={ex}
-                          locked={isLocked}
-                          index={ex.order}
-                        />
-                      </li>
-                    );
-                  })}
+                  {(profile.plan === "free" ? visible : [...visible, ...locked]).map(
+                    (ex) => {
+                      const isLocked =
+                        profile.plan !== "free" &&
+                        locked.some((l) => l.slug === ex.slug);
+                      return (
+                        <li key={ex.slug}>
+                          <ExerciseCard
+                            exercise={ex}
+                            locked={isLocked}
+                            index={ex.order}
+                          />
+                        </li>
+                      );
+                    }
+                  )}
                 </ul>
               )}
             </section>

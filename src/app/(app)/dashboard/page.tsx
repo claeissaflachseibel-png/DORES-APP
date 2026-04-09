@@ -35,7 +35,9 @@ export default async function DashboardPage() {
 
   const regionMeta = getRegionBySlug(primary)!;
   const all = getExercisesByRegion(primary);
-  const { locked } = filterExercisesByAccess(ctx, all);
+  const { visible, locked } = filterExercisesByAccess(ctx, all);
+  const exercisesOnDashboard =
+    profile.plan === "free" ? visible : [...visible, ...locked];
 
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
@@ -163,17 +165,16 @@ export default async function DashboardPage() {
             <span className="font-medium text-foreground">
               Plano gratuito:
             </span>{" "}
-            os <strong className="text-foreground">3 primeiros</strong>{" "}
-            exercícios da tua região estão abertos. Os restantes mostram o que
-            podes desbloquear — usa{" "}
+            tens acesso a <strong className="text-foreground">3 exercícios</strong>{" "}
+            da tua região. Para o protocolo completo, vê{" "}
             <Link href="/plans" className="font-medium text-primary hover:underline">
               Planos
-            </Link>{" "}
-            quando quiseres.
+            </Link>
+            .
           </p>
         )}
         <ul className="space-y-3">
-          {all.map((ex) => {
+          {exercisesOnDashboard.map((ex) => {
             const open = canViewExercise(ctx, ex);
             return (
               <li key={ex.slug}>
@@ -186,9 +187,18 @@ export default async function DashboardPage() {
             );
           })}
         </ul>
-        {locked.length > 0 && (
-          <p className="text-sm text-muted mt-4 text-center">
+        {profile.plan !== "free" && locked.length > 0 && (
+          <p className="mt-4 text-center text-sm text-muted">
             +{locked.length} exercícios disponíveis ao desbloquear esta região.
+          </p>
+        )}
+        {profile.plan === "free" && (
+          <p className="mt-4 text-center text-sm text-muted">
+            Protocolo completo e mais regiões em{" "}
+            <Link href="/plans" className="font-medium text-primary hover:underline">
+              Planos
+            </Link>
+            .
           </p>
         )}
       </section>
